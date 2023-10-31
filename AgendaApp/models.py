@@ -13,7 +13,7 @@ class Contato(models.Model):
         ('V','Viúvo')
         ]
 
-    nome = models.CharField(max_length=100)
+    nome = models.CharField(max_length=200)
     apelido = models.CharField(max_length=30)
     email = models.EmailField(max_length=100, verbose_name='E-mail')
     DataNascimento = models.DateField()
