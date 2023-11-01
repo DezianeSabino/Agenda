@@ -1,5 +1,20 @@
 from django.db import models
 
+UFS = [
+        ('SP', 'Sao Paulo'), 
+        ('RJ', 'Rio de Janeiro'), 
+        ('MG', 'Minas Gerais'), 
+        ('BA', 'Bahia')
+    ]
+
+
+class Cidade(models.Model):
+    nome = models.CharField(max_length=50)
+    uf = models.CharField(max_length=2, choices=UFS)
+        
+    def __str__ (self):
+        return self.nome
+
 # Create your models here.
 class Contato(models.Model):
 
@@ -12,6 +27,7 @@ class Contato(models.Model):
         ('D', 'Divorciado'), 
         ('V','Viúvo')
         ]
+  
 
     nome = models.CharField(max_length=200)
     apelido = models.CharField(max_length=30)
@@ -22,8 +38,8 @@ class Contato(models.Model):
     complemento = models.CharField(max_length=50)
     cep = models.CharField(max_length=9)
     bairro = models.CharField(max_length=100)
-    cidade = models.CharField(max_length=100)
-    estado = models.CharField(max_length=50)
+    cidade = models.ForeignKey(Cidade, on_delete=models.CASCADE)
+    estado = models.CharField(max_length=2, choices=UFS)
     estado_civil = models.CharField(max_length=1, choices=ESTADO_CIVIS, null=True)
 
 
@@ -33,4 +49,4 @@ class Contato(models.Model):
     class Meta:
         verbose_name = ("Pessoa")
         verbose_name_plural = ("Pessoas")
-        
+
